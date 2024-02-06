@@ -1,11 +1,6 @@
-#!/usr/bin/env python3
-"""
-Parametrize templates
-"""
-
 import babel
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, _
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -26,9 +21,10 @@ app.config.from_object(Config)
 @babel.locale_selector
 def get_locale():
     """
-     determine the best match with our supported languages.
+    Determine the best match with our supported languages.
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
